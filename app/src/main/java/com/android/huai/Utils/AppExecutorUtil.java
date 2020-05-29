@@ -1,4 +1,4 @@
-package com.android.huai.Utils;
+package com.android.huai.utils;
 
 import android.os.Handler;
 import android.os.Looper;

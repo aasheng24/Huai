@@ -4,7 +4,7 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import com.android.huai.Utils.AppExecutorUtil;
+import com.android.huai.utils.AppExecutorUtil;
 
 import java.util.List;
 

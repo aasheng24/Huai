@@ -8,7 +8,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.android.huai.Utils.AppExecutorUtil;
+import com.android.huai.utils.AppExecutorUtil;
 
 @Database(entities = Word.class, version = 1, exportSchema = false)
 public abstract class WordRoomDatabase extends RoomDatabase {
