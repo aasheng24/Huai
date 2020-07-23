@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--弹窗的通用背景-->
+    <solid android:color="#ffffff" />
+    <stroke
+        android:color="#ffffff"
+        android:width="@dimen/dialog_stroke_size" />
+    <corners android:radius="@dimen/dialog_radius_size" />
+</shape>

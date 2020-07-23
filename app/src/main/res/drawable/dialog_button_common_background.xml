@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <corners android:radius="@dimen/dialog_button_radius" />
+    <solid android:color="#427efe" />
+
+    <!--<size android:height="@dimen/dialog_one_button_height"-->
+    <!--android:width="@dimen/dialog_one_button_width"/>-->
+
+    <!--<size android:height="@dimen/dialog_two_button_height"-->
+    <!--android:width="@dimen/dialog_two_button_width"/>-->
+
+
+</shape>

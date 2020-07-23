@@ -5,4 +5,43 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="appbar_padding">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
+    <!--统一规范 start-->
+
+    <!--顶部导航栏标题文字(加粗) 52px-->
+    <dimen name="app_top_bar_title_text_size">16sp</dimen>
+
+    <!--模块标题文字 46px-->
+    <dimen name="app_module_title_text_size">15.3sp</dimen>
+    <!--正文内容次要文字 40px-->
+    <dimen name="app_text_text_size">14sp</dimen>
+    <!--弹窗内容与容器之间的边距,即关闭按钮的大小-3-->
+    <dimen name="dialog_content_padding">21.6dp</dimen>
+    <!--弹窗的宽度 864px -->
+    <dimen name="dialog_body_width">288dp</dimen>
+    <!--弹窗的高度 576px -->
+    <dimen name="dialog_body_height">192dp</dimen>
+    <dimen name="dialog_body_height1">235dp</dimen>
+    <!--隐私政策弹窗高度-->
+    <dimen name="dialog_body_height2">212dp</dimen>
+    <!--权限申请弹窗高度-->
+    <dimen name="dialog_body_height3">250dp</dimen>
+    <!--弹窗描边宽度-->
+    <dimen name="dialog_stroke_size">2px</dimen>
+    <!--弹窗圆角 15px-->
+    <dimen name="dialog_radius_size">5dp</dimen>
+    <!--弹窗标题距离顶部 90px-->
+    <dimen name="dialog_content_title_padding_top">30dp</dimen>
+    <!--弹窗正文左右外边距 90px-->
+    <dimen name="dialog_content_text_padding_left_right">30dp</dimen>
+    <!--弹窗按钮距离底部边距 48px-->
+    <dimen name="dialog_button_padding_bottom">16dp</dimen>
+    <!--弹窗标题与正文之间的边距 50px-->
+    <dimen name="dialog_title_padding_bottom">16.6dp</dimen>
+    <!--弹窗(一个按钮)按钮宽度 504px-->
+    <dimen name="dialog_one_button_width">168dp</dimen>
+    <!--弹窗(两个按钮)按钮间的边距 96px-->
+    <dimen name="dialog_two_button_margin">32dp</dimen>
+    <!--弹窗圆角 57.5px-->
+    <dimen name="dialog_button_radius">19.16dp</dimen>
+
 </resources>
