@@ -1,0 +1,157 @@
+Http与Https的区别：
+  http以http://开头，https以https://开头
+  http不需要认证证书，https需要认证证书
+  http是不安全的，https是安全的
+
+TCP与UDP的区别:
+三次握手：
+A - B
+B - A
+A - B
+四次挥手：
+A - B
+B - A
+B - A
+A - B
+TCP面向连接的，UDP面向无连接
+TCP保证数据准确性及顺序，UDP可能丢包
+
+线程池:
+1、newSingleThreadExecutor
+    只有一个线程得线程池
+2、newFixedThreadPool
+    固定大小得线程池
+3、newCachedThreadPool
+    根据需要增加线程，不需要的时候进行回收
+4、newScheduledThreadPool
+    大小不限制得线程池
+
+new:  ThreadPoolExecutor pool = new ThreadPoolExecutor(4, 4, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(10));
+      另外一种写法,与上述本质为一致：
+      ExecutorService pool = Executors.newFixedThreadPool(4);
+执行： pool.execute(Runnable command)
+结束： pool.shutdown()/pool.shutdownNow()
+
+Dalvik与JVM的区别
+Dalvik基于寄存器（编译的时候速度快），JVM基于栈
+Dalvik运行dex文件，JVM运行class文件
+
+APP加固原理：
+获取原始dex文件
+对原始dex文件进行加密，加密存放到assets目录
+用解密的dex文件替换原先的dex文件
+删除原先的签名文件
+生成apk并签名
+
+热修复原理
+修改代码，生成dex文件
+将新的dex文件插入dexclassloader的dexelements里面
+
+looper为什么不会anr：
+没有消息的时候looper会阻塞，程序也不需要更新，不会退出
+anr是主线程有消息没来得及处理又有一堆新的消息
+
+JVM内存模型：
+堆 - 对象实例或数组 - 进程共享
+栈 - 基本数据类型、局部变量   - 进程私有
+方法区 - 类信息\常量\静态变量
+本地方法区 - native方法
+程序计数器 - 机器指令
+
+垃圾回收机制：
+GC_FOR_MALLOC: 表示堆上分配对象时内存不足引发的GC
+GC_CONCURRENT: 表示内存分配到一定量的时候出发的GC
+GC_EXPLICIT: 调用System.gc触发
+GC_BEFORE_OOM: 准备抛OOM异常前触发的GC
+判断：根搜索算法，从GCroot开始向下寻找，所有路径不可达的对象即为可回收对象
+算法：标记-清除 - 标记所有可回收对象再统一清除
+     复制算法  - 分成两块，一块用完了，复制存活对象到另外一块，清除原先一块
+     分代收集  - 新生代（复制算法）/老生代（标记清除）
+
+android内存：
+泄漏：程序无法释放不再使用的内存空间
+溢出：没有足够的内存空间满足申请
+
+常见泄漏：
+1，非静态内部类、匿名内部类
+2，资源未及时关闭，文件操作、数据库cursor、图片处理
+3，handler的message没清理
+4，广播的注册与反注册
+5，属性动画未关闭
+
+解决方式
+1，弱应用
+2，applicationcontext
+3，注册反注册
+4，动画关闭
+5，资源操作关闭
+6，非静态内部类的使用
+
+handler声明为static,并且初始话的时候传入外部类的弱引用，以便使用外部类的变量
+
+
+事件分发：
+  Activity:   dispatchTouchEnvent               ontouchEvent
+  viewgroup:  dispatchTouchEnvent               ontouchEvent
+  view:       dispatchTouchEnvent    ontouch    ontouchEvent
+
+多点触控：
+mFirstTouchTarget 记录是否已有触摸事件在
+ACTION_POINTER_DOWN
+ACTION_POINTER_UP
+getActionMasked() 获取事件action
+getActionIndex() 获取产生事件的手指
+getPointerCount() 获取屏幕上的手指
+getPointerId(int pointerIndex) 获取手指的唯一标识符
+
+View绘制流程：
+setcontentView之后初始化dectorView，整个activity的view父类
+handresumeActivity之后初始化viewRootImpl，activity的view数的管理
+          viewrootimpl                          view
+performMeasure  measure  onMeasure             measure
+performLayout  layout  onLayout             layout
+performDraw  draw  onDraw             draw
+继承View重新onDraw方法
+
+应用启动流程：
+1，launcher点击图标后通知系统
+2，系统启动一个task进行启动，并通知launcher进入onpause
+3，launcher进入onpause之后通知系统
+4，系统通知zygote孵化一个应用进程，并对应一个activitythread类，调用main方法绑定looper进入消息轮询状态
+5，系统进行应用信息的注册，并启动相应activity
+
+activity启动模式：
+standard
+singleTop
+singleTask
+singleInstance
+FLAG_ACTIVITY_NEW_TASK
+FLAG_ACTIVITY_CLEAR_TOP
+FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
+FLAG_ACTIVITY_SINGLE_TOP
+
+
+Dialog为什么要用Activity的context
+Activity与window建立连接，通过window的addView添加view，会做token验证，token与activity有关
+
+
+进程保活：
+  前台进程、可见进程、服务进程、后台进程、空进程
+提高进程优先级：
+  启动1pxActivity
+  服务绑定notification
+杀死后拉起：
+  监听广播
+  服务的start_sticky
+  双进程守护，onServiceDisconnected中启动
+
+
+
+-------------第三方库--------------
+RXjava:
+  一个用来处理异步操作的第三方库
+  运用了观察者模式
+  observable(被观察者)、observer(观察者)、subscribe(订阅)、事件
+
+
+

@@ -1,0 +1,638 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>JSBridge</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=no"/>
+    <script src="file:///android_asset/JSBridge.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var sendPost=function (){
+                var params={
+                        "key1":"value1",
+                        "key2":"value2"
+                     };
+
+                    JSBridge.post('http://baidu.com',params,function(res){alert(JSON.stringify(res))});
+                };
+        
+        var sendGet=function (){
+            var params={
+                "key1":"value1",
+                "key2":"value2"
+             };
+
+            JSBridge.get('http://baidu.com',params,function(res){alert(JSON.stringify(res))});
+        };
+        //读取二代身份证
+        
+        var readIdCard=function (){
+        	JSBridge.NativeCall('IdCard','readIdCard',{},function(res){      		
+        	});
+        };
+
+        var getIdCardPhoto=function (type){
+        	JSBridge.NativeCall('IdCard','getIdCardPhoto',{'type':type},function(res){
+        	});
+        };
+		
+		var realTime = function(){
+			JSBridge.NativeCall('BCAMERA','getFaceRealTime',{},function(res){      		
+        	});
+		}
+
+		var closeRealTime = function(){
+		    JSBridge.NativeCall('BCAMERA','closeFaceRealTime',{},function(res){
+        	});
+		}
+      
+        //获取打印机状态
+        var print1Dev=function (){
+			alert('获取打印机状态！');
+        	JSBridge.NativeCall('Print','getPrinterStatus',{},function(res){
+        	
+        	});
+        };
+         //打印图片
+        var print2Dev=function (){
+        	JSBridge.NativeCall('Print','PrintInvoice',{
+	"payDate": " 2018 年 9月 19号",
+	"payWebsite": "福田区分公司国通智慧营业厅",
+	"orderId": "123456789",
+	"payPhone": "13925210729",
+	"price": "100",
+	"realPrice": "100",
+	"payNum": "98.5",
+	"payType": "微信支付"
+},function(res){
+        	
+        	});
+        };
+         //打印文本
+        var print3Dev=function (){
+        	JSBridge.NativeCall('Print','PrintBillInvoice',{
+				"billMonth": '2018年9月',
+				"billCycle": "20180901-20180930",
+				"totalBill": '300.00',
+				"balance": '300.00',
+				"serviceNumber": '13800000000',
+				"totalPoint":'588',
+				'fixedCost':'298',
+				'noFixedCost':'3000',
+				"arrayOne":[{"thirdItemsValue": "1.00","thirdItemsName": "国内漫游计划套餐"},{"thirdItemsValue": "10.00","thirdItemsName": "88元88套餐"},{"thirdItemsValue": "5.00","thirdItemsName": "彩铃"}],
+				"arrayTwo":[{ "name": "套餐外语音通信费","value": "-257.36"},{"name": "套餐外上网费","value": "0.00"},{"name": "套餐外短\信彩信费","value": "16.10"}],
+				"base64":""},function(res){
+
+        	});
+        };
+
+         //cmcc <guodongsheng> add for print detail
+        var printDetail=function (){
+        	JSBridge.NativeCall('Print','printBillDetail',{
+				"provinceName": "广东",
+				"userName": "科比",
+				"phoneNo": '112345678',
+				"billCycleStartDate": "20190301",
+				"billCycleEndDate": "20190401",
+				"tmemType":"01",
+				"detailTypeName": "套餐详单",
+				"totalCount":'588',
+				"totalFee":"500",
+				"printTime":"2019-05-10 10:22:22",
+				"dataList":[{"mealName":"优惠300元合计费（除代收）","disposable":"20190401-20190430","fee":"-16.60"}
+,{"mealName":"优惠400元合计费（除代收）","disposable":"20190501-20190530","fee":"-16.60"}]},
+				function(res){
+        	});
+        };
+        
+        //打开联系人
+        var getContact=function (){
+        	JSBridge.NativeCall('CPContact','getContact',{},function(res){
+        		alert(JSON.stringify(res));
+        		document.getElementById("contact_div").innerHTML='<p>'+res.phone+'</p>';
+        	});
+        };
+        //扩展测试
+        var showPickerView=function (){
+        	JSBridge.NativeCall('CPNativeCall','showPickerView-----------test',{},function(res){
+        		alert(res.data);
+        	});
+        }
+		//--------------------------------------------------------------------
+		//调用中国移动外设
+
+		//1004 启动二维码扫码
+		var startQrcodeDev=function (){
+		
+			JSBridge.NativeCall('1004',{},function(res){
+        		alert(res.data);
+        	});
+        }		
+		
+		//读卡部分
+		
+		var cardresetDev=function (){
+		
+			JSBridge.NativeCall('CPCmccDev','5001',{},function(res){
+        		//alert(res.data);
+        	});
+        }
+		
+		var cardinDev=function (){
+			JSBridge.NativeCall('RQCODE','delQRCodeWork',{'aa':'ss'},function(res){});
+        }
+		
+		
+		
+		var cardreadDev=function (){
+		
+			JSBridge.NativeCall('CashPayment','cashPayment',"{'orderId':'12345678909873210','phoneNumber':'15013669024','totalAmount':'100'}",function(res){
+        		//alert(res.data);
+        	});
+        }
+		var cardoutDev=function (){
+		
+			JSBridge.NativeCall('CPCmccDev','5004','',function(res){
+        		//alert(res.data);
+        	});
+        }
+		
+		var voiceRecognition = function (){
+			JSBridge.NativeCall('Voice','sendCmd',{'main':'102','speak':'欢迎进入补换卡页面，请连续报出十一位手机号码'},function(res){
+        		//alert(res.data);
+        	});
+			
+        }
+		
+		var voiceRecognition2 = function (){
+			JSBridge.NativeCall('Voice','testResults',{'main':'107','sub':'0','speak':'欢迎进入充值页面，请连续报出十一位手机号码'},function(res){
+        		//alert(res.data);
+        	});
+			
+        }
+		
+		var pringImage = function (){
+			JSBridge.NativeCall('Print','printImage',{},function(res){
+        		//alert(res.data);
+        	});
+			
+        }
+		
+		
+		function resultFun(str){
+			document.getElementById("helloCmcc").innerHTML="："+str;
+			var json = JSON.parse(str);
+			
+			var img = document.getElementById("base64Img");
+			img.src = json.data;
+
+            //var json = eval('(' + str + ')');
+		}
+		
+		function voiceResultFun(res){
+		
+			var resJson = JSON.parse(res);
+			
+			if(resJson.retCode == "200"){
+				//alert(resJson);
+				//充值
+			//这段逻辑
+			if(resJson.data.main == "107"){
+				if(resJson.data.sub == "0"){
+					//播报第一条欢迎进入充值页面，请输入手机号后的逻辑操作  resJson.data 为返回结果  将结果值给电话框框回显
+					//参考语句：
+				}else if(resJson.data.sub == "1"){
+					document.getElementById("phone").value=resJson.data.speak;
+					//document.getElementById("phone2").value=resJson.data.speak;
+				}else if(resJson.data.sub == "2"){
+					alert(resJson.data.speak);
+				}else if(resJson.data.sub == "3"){
+					alert(resJson.data.speak);
+				}
+			}
+			}
+			
+			
+		}
+		
+		
+		//语音充值缴费流程
+		function testDemo(res){
+			voice[res]()
+			var resJson = JSON.parse(res);
+			
+			
+			var voice = {};
+			voice["10701"] = function(res){
+			
+			};
+			voice["10702"] = "请再次输入手机号码";
+			voice["10703"] = "请选择充值金额";
+			voice["10704"] = "请点击立即充值";
+			voice["10705"] = "请确认充值号码与金额并选择支付方式";
+			voice["10706"] = "请出示二维码放置扫描窗口";
+			voice["10707"] = "支付完成";
+			
+			
+			
+			//进入充值页面发送请求
+			JSBridge.NativeCall('Voice','sendCmd',{'cmd':'10701','data':'18123742980'},function(res){
+        		//alert(res.data);
+        	});
+
+			
+			
+
+			
+
+			
+			//充值
+			//这段逻辑
+			if(resJson.cmd == "10701"){
+					//播报第一条欢迎进入充值页面，请输入手机号后的逻辑操作  resJson.data 为返回结果  将结果值给电话框框回显
+					//参考语句：document.getElementById("phone").value=json.data;
+					
+					
+					//播报第二条请再次输入手机号码
+					JSBridge.NativeCall('Voice','sendCmd',{'cmd':'10702','data':'18123742980'},function(res){});
+			}else if(resJson.cmd == "10702"){
+				//播报第二条请再次输入手机号后的逻辑操作  resJson.data 为返回结果  将结果值给电话确认框框回显
+				//参考语句：document.getElementById("phone2").value=json.data;
+				
+				//播报第二条请再次输入手机号码
+				JSBridge.NativeCall('Voice','sendCmd',{'cmd':'10703','data':'18123742980'},function(res){});
+			}else if(resJson.cmd == "10703"){
+				//播报第二条请再次输入手机号后的逻辑操作  resJson.data 为返回结果  将结果值给电话确认框框回显
+				//参考语句：document.getElementById("phone2").value=json.data;
+				
+				//播报第二条请再次输入手机号码
+				JSBridge.NativeCall('Voice','sendCmd',{'cmd':'10704','data':'18123742980'},function(res){});
+			}else if(resJson.cmd == "10704"){
+				
+				//播报第二条请再次输入手机号码
+				JSBridge.NativeCall('Voice','sendCmd',{'cmd':'10704','data':'18123742980'},function(res){});
+			}
+
+		}
+		
+		//--------------------------------------------------
+		
+		//java 调用js的方法
+		function funFromjs(str){
+				//document.getElementById("helloCmcc").innerHTML="："+str;
+				var json = JSON.parse(str);
+				alert(json);
+				alert(json.cmd);
+		}
+	//---------------------------二维码
+	
+	//java 调用js的方法
+		function startQrcode(){
+			JSBridge.NativeCall('CPCmccDev','1004',{},function(res){
+        		
+        	});
+		}
+		
+		function phoneChange(){
+			var val = document.getElementById("phone").value;
+			if(val != ''){
+				JSBridge.NativeCall('Voice','sendCmd',{'cmd':'请再次输入手机号码'},function(res){
+        		//alert(res.data);
+				});
+			}
+		}
+	
+
+
+	    //签名
+		function getSignature(){
+			<!--JSBridge.NativeCall('Signature','getSignature',{"Time":"30","startX":"200","endX":"1000","startY":"200","endY":"800"},function(res){-->
+			JSBridge.NativeCall('Signature','getSignature',{"Time":"30","startX":"0","endX":"300","startY":"600","endY":"800"},function(res){
+			    alert(res.data);
+        	});
+        }
+        //取消签名
+		function cancelSignature(){
+			JSBridge.NativeCall('Signature','cancelSignature',{},function(res){
+			    alert(res.data);
+        	});
+        }
+        //重签
+		function clearSign(){
+			JSBridge.NativeCall('Signature','clearSign',{},function(res){
+			    alert(res.data);
+        	});
+        }
+        //签名完成
+		function confirmSign(){
+			JSBridge.NativeCall('Signature','confirmSign',{},function(res){
+			    alert(res.data);
+        	});
+        }
+		
+		function readCardNumber(){
+			JSBridge.NativeCall('SimCard','getCardNumber',{},function(res){
+        	});
+		}
+
+		function writeCardNumber(){
+			JSBridge.NativeCall('SimCard','moveCardPlace',{"orderID":"201811160008","phoneNumber":"18501926540","serverURL":"https://111.198.190.250:8916/server-usim/usimPersonalize"},function(res){
+        	});
+		}
+
+		function readCardNumberNew(){
+		    JSBridge.NativeCall('SimCard','getCardVersion',{},function(res){});
+		}
+
+		function writeCardNumberNew(){
+			JSBridge.NativeCall('SimCard','writeCardNew',{"orderID":"201811160008","phoneNumber":"18501926540","serverURL":"https://111.198.190.250:8916/server-usim/usimPersonalize"},function(res){});
+		}
+        function getDevInfo(){
+			JSBridge.NativeCall('DEVICE','getDeviceInfo',"",function(res){});
+		}
+		
+
+    </script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+<div>
+
+    <h2>Android 原生传给Html的内容：</h2>
+    <p>
+    <div id="helloCmcc" style="font-size:22px"> 内容：</div>
+    </p>
+    <h2>Html调用外设</h2>
+</div>
+<ul class="list">
+    <li>
+        <div id="cardin_div">
+            <button onclick="realTime()" style="width:300px;height120px;font-size:25px">
+                抓人
+            </button>
+            <button onclick="closeRealTime()" style="width:300px;height120px;font-size:25px">
+                不抓人
+            </button>
+            <button onclick="cardinDev()" style="width:300px;height120px;font-size:25px">
+                启动读卡器
+            </button>
+            <button onclick="print1Dev()" style="width:300px;height120px;font-size:25px">
+                获取打印机状态1
+            </button>
+            <button onclick="print2Dev()" style="width:300px;height120px;font-size:25px">
+                打印图片
+            </button>
+            <button onclick="print3Dev()" style="width:300px;height120px;font-size:25px">
+                打印文本
+            </button>
+            <button onclick="printDetail()" style="width:300px;height120px;font-size:25px">
+                打印详单
+            </button>
+            <button onclick="readIdCard()" style="width:300px;height120px;font-size:25px">
+                读取身份证
+            </button>
+            <button onclick="getIdCardPhoto(1)" style="width:300px;height120px;font-size:25px">
+                正面
+            </button>
+            <button onclick="getIdCardPhoto(0)" style="width:300px;height120px;font-size:25px">
+                反面
+            </button>
+            <button onclick="voiceRecognition()" style="width:300px;height120px;font-size:25px">
+                语音
+            </button>
+            <button onclick="voiceRecognition2()" style="width:300px;height120px;font-size:25px">
+                语音2
+            </button>
+            <button onclick="readCardNumber()" style="width:300px;height120px;font-size:25px">
+                SIM序列号(研究院)
+            </button>
+            <button onclick="writeCardNumber()" style="width:300px;height120px;font-size:25px">
+                写卡(研究院)
+            </button>
+            <button onclick="readCardNumberNew()" style="width:300px;height120px;font-size:25px">
+                读取SIM序列号(兼容)
+            </button>
+            <button onclick="readCardNumber()" style="width:300px;height120px;font-size:25px">
+                读取SIM序列号(兼容)
+            </button>
+            <button onclick="writeCardNumber()" style="width:300px;height120px;font-size:25px">
+                写卡（兼容）
+            </button>
+            <button onclick="getDevInfo()" style="width:300px;height120px;font-size:25px">
+                获取设备信息
+            </button>
+            <input type="text" id="phone"/>
+
+            <input type="text" id="phone2"/>
+
+        </div>
+    </li>
+
+
+</ul>
+<ul class="list">
+    <li>
+        <div id="cardread_div">
+
+            <button onclick="cardreadDev() " style="width:300px;height120px;font-size:25px">
+                读卡号
+            </button>
+        </div>
+    </li>
+
+
+</ul>
+<ul class="list">
+    <li>
+        <div id="cardout_div">
+
+            <button onclick="print1Dev()" style="width:300px;height120px;font-size:25px">
+                退卡
+            </button>
+        </div>
+    </li>
+
+
+</ul>
+
+
+<!-- 二维码 -->
+<h2>二维码</h2>
+<ul class="list">
+    <li>
+        <div id="qrcode_div">
+
+            <button onclick="startQrcode()" style="width:300px;height120px;font-size:25px">
+                扫码
+            </button>
+        </div>
+    </li>
+
+
+</ul>
+
+<!-- 签名 -->
+<h2>签名</h2>
+<ul class="list">
+    <li>
+        <div id="sign_div">
+
+            <button onclick="getSignature()" style="width:300px;height120px;font-size:25px">
+                签名
+            </button>
+
+            <button onclick="cancelSignature()" style="width:300px;height120px;font-size:25px">
+                取消签名
+            </button>
+            <button onclick="clearSign()" style="width:300px;height120px;font-size:25px">
+                重签
+            </button>
+            <button onclick="confirmSign()" style="width:300px;height120px;font-size:25px">
+                签名完成
+            </button>
+        </div>
+    </li>
+</ul>
+
+<!-- 人脸识别 -->
+
+
+<!-- 纸币工具 -->
+
+
+<!-- 密码键盘 -->
+
+
+<!-- 
+
+<ul class="list">
+    <li>
+        <div>
+            <button onclick="JSBridge.NativeCall('CPCommon','1004',{'params':'Hello 中国移动，我是JS'},function(res){alert(JSON.stringify(res))})">
+                测试showToast
+            </button>
+        </div>
+    </li>
+    <br/>
+</ul>
+
+<ul class="list">
+    <li>
+        <div>
+            <button onclick="JSBridge.NativeCall('CPCommon','showDialog',{'params':' dialog测试'},function(res){alert(JSON.stringify(res))})">
+                测试showDialog
+            </button>
+        </div>
+    </li>
+    <br/>
+</ul>
+
+
+<ul class="list">
+    <li>
+        <div>
+
+            <button onclick="sendPost()">
+                测试交易转发Post方式
+            </button>
+        </div>
+    </li>
+    <li>
+        <div>
+
+            <button onclick="sendGet()">
+                测试交易转发Get方式
+            </button>
+        </div>
+    </li>
+    
+
+</ul>
+
+
+
+
+<ul class="list">
+    <li>
+        <div id="camera_div">
+
+            <button onclick="openCamera()">
+                	测试相机调用
+            </button>
+        </div>
+    </li>
+ 
+    
+
+</ul>
+
+
+<ul class="list">
+    <li>
+        <div id="photo_div">
+
+            <button onclick="openPhotos()">
+                	测试相册调用
+            </button>
+        </div>
+    </li>
+ 
+    
+
+</ul>
+
+
+
+
+<ul class="list">
+    <li>
+        <div id="contact_div">
+
+            <button onclick="getContact()">
+                	测试联系人获取
+            </button>
+        </div>
+    </li>
+ 
+    
+
+</ul>
+
+<ul class="list">
+    <li>
+        <div id="startqrcode_div">
+
+            <button onclick="startQrcodeDev()">
+                	启动二维码扫码测试
+            </button>
+        </div>
+    </li>
+ 
+    
+
+</ul>
+
+
+<ul class="list">
+    <li>
+        <div id="pickerview_div">
+
+            <button onclick="showPickerView()">
+                	其它扩展测试
+            </button>
+        </div>
+    </li>
+ 
+    
+
+</ul>
+
+-->
+
+<img src="" id="base64Img" width="40" height="30">
+</body>
+
+</html>
