@@ -2,7 +2,6 @@ package com.android.huai.http;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Hashtable;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -12,7 +11,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class httpManager {
+public class RetrofitManager {
     private static Retrofit mRetrofit;
     private static final String BASE_URL = "http://www.wanandroid.com/";
 
@@ -24,7 +23,7 @@ public class httpManager {
             retrofit = mRetrofits.get(url);
         }
         if (retrofit == null) {
-            synchronized (httpManager.class) {
+            synchronized (RetrofitManager.class) {
                 if (retrofit == null) {
                     retrofit = new Retrofit.Builder()
                             .baseUrl(url)

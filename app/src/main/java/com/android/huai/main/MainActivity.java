@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.android.huai.R;
+import com.android.huai.http.DownLoadManager;
 import com.android.huai.widget.dialog.BaseDialog;
 import com.android.huai.widget.dialog.DialogUtil;
 import com.android.huai.widget.dialog.CustomDialog;
@@ -29,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialogTest();
+                //dialogTest();
+                DownLoadManager.download(DownLoadManager.BASE_URL,DownLoadManager.FILE_URL);
             }
         });
         BottomNavigationView navView = findViewById(R.id.nav_view);

@@ -3,7 +3,6 @@ package com.android.huai.http;
 import com.android.huai.bean.KnowledgeSystem;
 
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -16,7 +15,7 @@ public class RetrofitRxjavaTest {
      * "http://www.wanandroid.com/"
      */
     public static void testGet() {
-        Retrofit retrofit = httpManager.getRetrofit("http://www.wanandroid.com/");
+        Retrofit retrofit = RetrofitManager.getRetrofit("http://www.wanandroid.com/");
         ApiService apiService = retrofit.create(ApiService.class);
         apiService.getKnowledgeSystem(1,1)
                 .subscribeOn(Schedulers.io())//IO线程显示数据
