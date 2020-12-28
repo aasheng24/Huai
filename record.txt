@@ -1,7 +1,30 @@
 Http与Https的区别：
   http以http://开头，https以https://开头
-  http不需要认证证书，https需要认证证书
-  http是不安全的，https是安全的
+  http不需要认证证书，https需要申请ca证书
+  http超文本传输协议，信息明文传输，https则是通过ssl加密的协议
+
+HTTP输入url到页面加载完成的过程：
+域名解析（DNS解析）
+建立TCP链接，浏览器发起请求
+服务端返回html代码。
+浏览器解析html代码，并请求涉及资源
+浏览器渲染界面展示给用户
+
+https请求过程：
+客户端向服务端发送请求
+服务端返回证书以及公钥
+客户端生成密钥（通常放在so库中），并用公钥加密返回给服务端
+服务端解析密钥，并用密钥加密返回数据
+客户端用密钥解密数据
+
+http版本变化：
+最开始是只支持get请求以及html格式的资源
+增加post请求以及请求头head，通过content_type支持多种数据格式
+增加了keep-alive，支持一个tcp链家多个http请求
+增加了双工模式，服务器可以并发处理多个请求
+
+pfx证书：含有密钥、公钥，cer证书：只含有公钥
+
 
 TCP与UDP的区别:
 三次握手：
@@ -16,7 +39,20 @@ A - B
 TCP面向连接的，UDP面向无连接
 TCP保证数据准确性及顺序，UDP可能丢包
 
+常见http code
+1**     信息，服务器收到请求，需要请求者继续执行操作
+2**     成功，操作被成功接收并处理
+3**     重定向，需要进一步的操作以完成请求
+4**     客户端错误，请求包含语法错误或无法完成请求
+5**     服务器错误，服务器在处理请求的过程中发生了错误
+
 线程池:
+ 第一阶段：线程池创建时并不会马上创建一堆线程，而是按需创建；
+ 第二阶段：请求抵达且核心线程数够用且没有空闲线程，那么创建新线程并分配任务；
+ 第二阶段：核心线程数不够用了，将任务放到阻塞队列；
+ 第三阶段：阻塞队列满了，那么额外创建新线程直到达到最大线程数；
+ 第四阶段：最大线程数也不够用了，那么拒绝策略开始发挥作用。
+
 1、newSingleThreadExecutor
     只有一个线程得线程池
 2、newFixedThreadPool
@@ -32,6 +68,7 @@ new:  ThreadPoolExecutor pool = new ThreadPoolExecutor(4, 4, 0L, TimeUnit.MILLIS
 执行： pool.execute(Runnable command)
 结束： pool.shutdown()/pool.shutdownNow()
 
+DVM指的是dalivk虚拟机，每个android应用程序都在自己的进程中运行，都拥有一个独立的Dalivk虚拟机实例，没一个DVM都是linux的一个进程，所以可以说是同一个概念
 Dalvik与JVM的区别
 Dalvik基于寄存器（编译的时候速度快），JVM基于栈
 Dalvik运行dex文件，JVM运行class文件
@@ -47,9 +84,13 @@ APP加固原理：
 修改代码，生成dex文件
 将新的dex文件插入dexclassloader的dexelements里面
 
+looper和线程一一对应(通过threadLocal) https://blog.csdn.net/dbpggg/article/details/98475132
+looper和messagequeue一一对应
+一个looper可以对应多个handler
 looper为什么不会anr：
-没有消息的时候looper会阻塞，程序也不需要更新，不会退出
+没有消息的时候loop中while无限循环不是阻塞，线程阻塞意味着失去cpu的执行权，程序也不需要更新，不会退出
 anr是主线程有消息没来得及处理又有一堆新的消息
+前台广播10s、前台服务20s，用户操作或键盘输入响应超过5s，模拟
 
 JVM内存模型：
 堆 - 对象实例或数组 - 进程共享
@@ -57,6 +98,15 @@ JVM内存模型：
 方法区 - 类信息\常量\静态变量
 本地方法区 - native方法
 程序计数器 - 机器指令
+
+(一) 强引用(StrongReference)
+强引用是使用最普遍的引用。如果一个对象具有强引用，那垃圾回收器绝不会回收它
+(二) 软引用(SoftReference)
+如果一个对象只具有软引用，则内存空间充足时，垃圾回收器就不会回收它；如果内存空间不足了，就会回收这些对象的内存。只要垃圾回收器没有回收它，该对象就可以被程序使用。
+(三) 弱引用(WeakReference)
+弱引用与软引用的区别在于：只具有弱引用的对象拥有更短暂的生命周期。在垃圾回收器线程扫描它所管辖的内存区域的过程中，一旦发现了只具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存。不过，由于垃圾回收器是一个优先级很低的线程，因此不一定会很快发现那些只具有弱引用的对象。
+(四) 虚引用(PhantomReference)
+虚引用顾名思义，就是形同虚设。与其他几种引用都不同，虚引用并不会决定对象的生命周期。如果一个对象仅持有虚引用，那么它就和没有任何引用一样，在任何时候都可能被垃圾回收器回收。
 
 垃圾回收机制：
 GC_FOR_MALLOC: 表示堆上分配对象时内存不足引发的GC
@@ -94,6 +144,8 @@ handler声明为static,并且初始话的时候传入外部类的弱引用，以
   Activity:   dispatchTouchEnvent               ontouchEvent
   viewgroup:  dispatchTouchEnvent               ontouchEvent
   view:       dispatchTouchEnvent    ontouch    ontouchEvent
+滑动冲突：onInterceptTouchEvent
+recyclerView.setNestedScrollingEnabled(false)
 
 多点触控：
 mFirstTouchTarget 记录是否已有触摸事件在
@@ -144,6 +196,20 @@ Activity与window建立连接，通过window的addView添加view，会做token�
   监听广播
   服务的start_sticky
   双进程守护，onServiceDisconnected中启动
+  
+hook：
+1. 根据需求确定 要hook的对象
+2. 寻找要hook的对象的持有者，拿到要hook的对象
+3. 定义“要hook的对象”的代理类，并且创建该类的对象
+4. 使用上一步创建出来的对象，替换掉要hook的对象
+
+多线程开发：
+sycchronized：
+同步代码块中 - 可以传任意锁
+同步方法中 - this
+wait是锁对象的方法，会释放锁线程可以做其它的事情，notify随机唤醒等待锁的线程，notifyall唤醒所有等待锁的线程
+sleep是线程的方法，不会释放锁，线程阻塞
+
 
 
 
@@ -152,6 +218,41 @@ RXjava:
   一个用来处理异步操作的第三方库
   运用了观察者模式
   observable(被观察者)、observer(观察者)、subscribe(订阅)、事件
+  线程切换原理，子线程利用到线程池如Schedulers.io(),主线程AndroidSchedulers.mainThread()
+  通过handler拿到mainlooper获取到主线程
 
+Glide:
+异步请求，请求队列，三级缓存，图片压缩，加载不同资源的入口
+三级缓存：网络层其实不算
+lruchache，利用了linkedhashmap，特点是hashmap的顺序划，以及后用的放在链表头
+缓存的是图片url的key以及具体图片资源，这样超过缓存区大小的时候就能够有限清掉长期不用的
+
+图片处理：option拿到尺寸进行缩放，利用softrefrence进行引用防止内存泄露
+
+
+leakcanary:
+通过content provider不用init，只需要manifest注册
+activity监听，ondestroy获取对象，然后判断是否被回收
+被回收的对象会加入weakreferencequeue，利用这个进行判断
+
+
+-----------------experence-----------------
+
+1，图片尺寸以及softrefrence使用
+https://blog.csdn.net/hitgaoxing/article/details/46691245
+
+2，LinkedHashmap
+https://www.cnblogs.com/hubingxu/archive/2012/02/21/2361281.html
+
+3，多线程（5个线程执行完执行第六个）join
+https://blog.csdn.net/ZHAOXING_ME/article/details/86570434?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1.control
+
+4，图片缓存原理
+https://www.jianshu.com/p/8f2631094804
+https://www.cnblogs.com/liyumin200603/articles/6223952.html
+https://www.cnblogs.com/wytiger/p/12957548.html
+
+5，web退出异常
+https://blog.csdn.net/qq_23547831/article/details/51820139
 
 

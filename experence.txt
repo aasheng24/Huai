@@ -1,0 +1,23 @@
+kotlin let apply 的区别
+kotlin中泛型
+协程 启动方式 协程中怎么用回调
+hashmap  linkedhashmap
+自定义view怎么用 每个方法多含义
+屏幕适配做过没，autosize什么时候加载的
+handler idlehandle  同步屏障 msgqueue用什么数据结构，怎么排序的
+热修复中如何运用双亲委派模型
+网络库用到什么  原理
+mvvm架构
+
+有没有知道mediaplayer的加载文件的流程
+为什么用mediaplayer
+ANR产生的原因是什么，哪些场景会产生anr
+体现你技术能力的一件事
+写过UI吗，动画
+
+刚腾讯问了：性能优化，直接获取一张图片高宽，anr，
+跨进程通讯，http版本差异和游览器输入链接过程，多线程，
+webview与原声通信，webview如果安全退出，内存回收机制和算法，
+内存泄露，怎么监听内存泄露，服务器通信怎么序列化，
+图片加载框架怎么实现及缓存原理，linkedhashmap
+

@@ -59,9 +59,10 @@ public class AlgorithmUtils {
         }
         ListNode pre = null, cur =node, nex = null;
         while(cur != null) {
+            ListNode next = cur.next;
             cur.next = pre;
             pre = cur;
-            cur = cur.next;
+            cur = next;
         }
         return pre;
     }
