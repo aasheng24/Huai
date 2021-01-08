@@ -234,6 +234,11 @@ leakcanary:
 通过content provider不用init，只需要manifest注册
 activity监听，ondestroy获取对象，然后判断是否被回收
 被回收的对象会加入weakreferencequeue，利用这个进行判断
+当使用弱引用(WeakReference)时，只要发生了垃圾回收GC，则不管内存是否充足时，
+都会将该对象进行回收。如果WeakReference定义了引用队列(ReferenceQueue)，
+则还会将这个WeakReference放入与之关联的ReferenceQueue中。
+因此，每次KeyedWeakReference对象被回收时，都会被放入到与之关联的引用队列queue中。
+
 
 
 -----------------experence-----------------

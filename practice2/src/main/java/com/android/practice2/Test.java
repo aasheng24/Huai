@@ -1,15 +1,17 @@
 package com.android.practice2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Test {
     public static void main(String[] args) {
-        findTheDifference("adbd","adbde");
+        List<String> list = new ArrayList<>();
+        while(list.size() != 0) {
+            int i = (int)Math.random()*list.size();
+            list.get(i);
+        }
+
     }
 
-    private static  char findTheDifference(String s, String t) {
-        StringBuilder sb = new StringBuilder(t);
-        int start = sb.indexOf(s);
-        sb.delete(start, start + s.length());
-        return sb.toString().toCharArray()[0];
-    }
 
 }
