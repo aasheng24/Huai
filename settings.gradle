@@ -1,5 +1,6 @@
-include ':practice2'
-include ':practicing'
-include ':algorithmLib'
 rootProject.name='Huai'
 include ':app'
+include ':facedetectdemo'
+include ':jsbridgedemo'
+
+
