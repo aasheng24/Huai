@@ -224,7 +224,7 @@ RXjava:
 Glide:
 异步请求，请求队列，三级缓存，图片压缩，加载不同资源的入口
 三级缓存：网络层其实不算
-lruchache，利用了linkedhashmap，特点是hashmap的顺序划，以及后用的放在链表头
+lruchache，利用了linkedhashmap，特点是hashmap的顺序化，以及后用的放在链表头
 缓存的是图片url的key以及具体图片资源，这样超过缓存区大小的时候就能够有限清掉长期不用的
 
 图片处理：option拿到尺寸进行缩放，利用softrefrence进行引用防止内存泄露

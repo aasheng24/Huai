@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.hardware.Camera;
 import android.hardware.Sensor;
@@ -99,7 +100,10 @@ public class FaceActivity extends AppCompatActivity {
         builder.create().show();
     }
 
+
     public int getBright(Bitmap bm) {
+        Intent intent = new Intent();
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         int width = bm.getWidth();
         int height = bm.getHeight();
         int r, g, b;

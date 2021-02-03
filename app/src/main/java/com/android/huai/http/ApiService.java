@@ -24,6 +24,13 @@ public interface ApiService {
 
 
     /**
+     * http://www.wanandroid.com/
+     * 获取只是体系数据
+     */
+    @GET("article/list/{page}/json")
+    Call<KnowledgeSystem> getKnowledgeSystemCall(@Path("page")int page, @Query("cid")int cid);
+
+    /**
      * 下载文件
      */
     @Streaming
